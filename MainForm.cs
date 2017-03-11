@@ -11,7 +11,7 @@ namespace ViewImage {
     /// </summary>
     public class MainForm : System.Windows.Forms.Form {
         private String imageName = "C:\\Users\\evans\\Pictures\\Assorted\\BirthOfVenus.jpg";
-        enum MODE { NORMAL, CENTER, STRETCH };
+        enum MODE { NORMAL, CENTER, STRETCH, ZOOM };
         private MODE mode = MODE.STRETCH;
 
         private System.Windows.Forms.MainMenu mainMenu;
@@ -27,6 +27,8 @@ namespace ViewImage {
         private System.Windows.Forms.MenuItem optionsSizeModeNormal;
         private System.Windows.Forms.MenuItem optionsSizeMode;
         private System.Windows.Forms.MenuItem optionsFitToImage;
+        private MenuItem optionsSizeModeZoomImage;
+        private MenuItem helpMenuInformation;
         private System.Windows.Forms.MenuItem optionsSizeModeStretchImage;
 
         public MainForm() {
@@ -69,21 +71,23 @@ namespace ViewImage {
             this.optionsSizeModeCenterImage = new System.Windows.Forms.MenuItem();
             this.optionsSizeModeNormal = new System.Windows.Forms.MenuItem();
             this.optionsSizeModeStretchImage = new System.Windows.Forms.MenuItem();
+            this.optionsSizeModeZoomImage = new System.Windows.Forms.MenuItem();
             this.optionsFitToImage = new System.Windows.Forms.MenuItem();
             this.helpMenu = new System.Windows.Forms.MenuItem();
             this.helpMenuAbout = new System.Windows.Forms.MenuItem();
+            this.helpMenuInformation = new System.Windows.Forms.MenuItem();
             this.imagePictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // MainMenu
+            // mainMenu
             // 
             this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.fileMenu,
             this.optionsMenu,
             this.helpMenu});
             // 
-            // FileMenu
+            // fileMenu
             // 
             this.fileMenu.Index = 0;
             this.fileMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
@@ -91,19 +95,19 @@ namespace ViewImage {
             this.fileMenuExit});
             this.fileMenu.Text = "File";
             // 
-            // FileMenuOpen
+            // fileMenuOpen
             // 
             this.fileMenuOpen.Index = 0;
             this.fileMenuOpen.Text = "Open...";
             this.fileMenuOpen.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // FileMenuExit
+            // fileMenuExit
             // 
             this.fileMenuExit.Index = 1;
             this.fileMenuExit.Text = "Exit";
             this.fileMenuExit.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // OptionsMenu
+            // optionsMenu
             // 
             this.optionsMenu.Index = 1;
             this.optionsMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
@@ -111,61 +115,75 @@ namespace ViewImage {
             this.optionsFitToImage});
             this.optionsMenu.Text = "Options";
             // 
-            // OptionsSizeMode
+            // optionsSizeMode
             // 
             this.optionsSizeMode.Index = 0;
             this.optionsSizeMode.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.optionsSizeModeCenterImage,
             this.optionsSizeModeNormal,
-            this.optionsSizeModeStretchImage});
+            this.optionsSizeModeStretchImage,
+            this.optionsSizeModeZoomImage});
             this.optionsSizeMode.Text = "Size Mode";
             // 
-            // OptionsSizeModeCenterImage
+            // optionsSizeModeCenterImage
             // 
             this.optionsSizeModeCenterImage.Index = 0;
             this.optionsSizeModeCenterImage.RadioCheck = true;
             this.optionsSizeModeCenterImage.Text = "Center Image";
             this.optionsSizeModeCenterImage.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // OptionsSizeModeNormal
+            // optionsSizeModeNormal
             // 
             this.optionsSizeModeNormal.Index = 1;
             this.optionsSizeModeNormal.RadioCheck = true;
             this.optionsSizeModeNormal.Text = "Normal";
             this.optionsSizeModeNormal.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // OptionsSizeModeStretchImage
+            // optionsSizeModeStretchImage
             // 
             this.optionsSizeModeStretchImage.Index = 2;
             this.optionsSizeModeStretchImage.RadioCheck = true;
             this.optionsSizeModeStretchImage.Text = "Stretch Image";
             this.optionsSizeModeStretchImage.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // OptionsFitToImage
+            // optionsSizeModeZoomImage
+            // 
+            this.optionsSizeModeZoomImage.Index = 3;
+            this.optionsSizeModeZoomImage.Text = "Zoom Image";
+            this.optionsSizeModeZoomImage.Click += new System.EventHandler(this.MainMenuHandler);
+            // 
+            // optionsFitToImage
             // 
             this.optionsFitToImage.Index = 1;
             this.optionsFitToImage.Text = "Fit To Image";
             this.optionsFitToImage.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // HelpMenu
+            // helpMenu
             // 
             this.helpMenu.Index = 2;
             this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.helpMenuInformation,
             this.helpMenuAbout});
             this.helpMenu.Text = "Help";
             // 
-            // HelpMenuAbout
+            // helpMenuInformation
             // 
-            this.helpMenuAbout.Index = 0;
+            this.helpMenuInformation.Index = 0;
+            this.helpMenuInformation.Text = "Debug Information...";
+            this.helpMenuInformation.Click += new System.EventHandler(this.MainMenuHandler);
+            // 
+            // helpMenuAbout
+            // 
+            this.helpMenuAbout.Index = 1;
             this.helpMenuAbout.Text = "About...";
             this.helpMenuAbout.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // ImagePictureBox
+            // imagePictureBox
             // 
             this.imagePictureBox.BackColor = System.Drawing.Color.YellowGreen;
             this.imagePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.imagePictureBox.Location = new System.Drawing.Point(0, 0);
-            this.imagePictureBox.Name = "ImagePictureBox";
+            this.imagePictureBox.Name = "imagePictureBox";
             this.imagePictureBox.Size = new System.Drawing.Size(968, 1062);
             this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imagePictureBox.TabIndex = 0;
@@ -204,7 +222,6 @@ namespace ViewImage {
                 item.Handle,"Information");
 #endif
             if (sender == fileMenuExit) {
-                // FileMenuExit
                 Application.Exit();
             } else if (sender == fileMenuOpen) {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -225,25 +242,22 @@ namespace ViewImage {
                             "Error");
                         return;
                     }
-
-                    // Just use the form resize method
-                    OnFormResize(null, null);
+                    refresh();
                 }
             } else if (sender == optionsSizeModeCenterImage) {
-                // OptionsSizeModeCenterImage
                 doCenter();
             } else if (sender == optionsSizeModeNormal) {
-                // OptionsSizeModeNormal
                 doNormal();
             } else if (sender == optionsSizeModeStretchImage) {
-                // OptionsSizeModeStretchImage
                 doStretch();
+            } else if (sender == optionsSizeModeZoomImage) {
+                doZoom();
             } else if (sender == optionsFitToImage) {
-                // OptionsFitToImage
                 doFit();
-            } else if (sender == helpMenuAbout) {
-                // HelpMenuAbout
+            } else if (sender == helpMenuInformation) {
                 doInfo();
+            } else if (sender == helpMenuAbout) {
+                doHelp();
             }
         }
 
@@ -261,6 +275,7 @@ namespace ViewImage {
             optionsSizeModeCenterImage.Checked = true;
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = false;
+            optionsSizeModeZoomImage.Checked = false;
             Invalidate();
         }
 
@@ -274,6 +289,7 @@ namespace ViewImage {
             optionsSizeModeCenterImage.Checked = false;
             optionsSizeModeNormal.Checked = true;
             optionsSizeModeStretchImage.Checked = false;
+            optionsSizeModeZoomImage.Checked = false;
             Invalidate();
         }
 
@@ -286,6 +302,20 @@ namespace ViewImage {
             optionsSizeModeCenterImage.Checked = false;
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = true;
+            optionsSizeModeZoomImage.Checked = false;
+            Invalidate();
+        }
+
+        private void doZoom() {
+            mode = MODE.ZOOM;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            imagePictureBox.Location = new Point(0, 0);
+            imagePictureBox.ClientSize = ClientSize;
+            AutoScroll = false;
+            optionsSizeModeCenterImage.Checked = false;
+            optionsSizeModeNormal.Checked = false;
+            optionsSizeModeStretchImage.Checked = false;
+            optionsSizeModeZoomImage.Checked = true;
             Invalidate();
         }
 
@@ -317,19 +347,14 @@ namespace ViewImage {
                 + "\nVerticalScroll.SmallChange=" + this.VerticalScroll.SmallChange
                 + "\nVerticalScroll.LargeChange=" + this.VerticalScroll.LargeChange
                ,
-                "Information");
-            Invalidate();
+                "Debug Information");
         }
 
-        private void OnFormResize(object sender, System.EventArgs e) {
-#if false
-            MessageBox.Show("OnFormResize"
-                + "\nClientSize.Width=" + ClientSize.Width
-                + "\nClientSize.Height=" + ClientSize.Height
-               + "\nImagePictureBox.ClientSize.Width=" + ImagePictureBox.ClientSize.Width
-                + "\nImagePictureBox.ClientSize.Height=" + ImagePictureBox.ClientSize.Height,
-                "Information");
-#endif
+        private void doHelp() {
+            MessageBox.Show("Help is not implemented yet", "Help");
+        }
+
+        private void refresh() {
             switch (mode) {
                 case MODE.NORMAL:
                     doNormal();
@@ -340,17 +365,20 @@ namespace ViewImage {
                 case MODE.STRETCH:
                     doStretch();
                     break;
+                case MODE.ZOOM:
+                    doZoom();
+                    break;
             }
             Invalidate();
         }
 
+        private void OnFormResize(object sender, System.EventArgs e) {
+            refresh();
+        }
+
         private void OnFormLoad(object sender, EventArgs e) {
             imagePictureBox.Image = new Bitmap(imageName);
-#if false
-            doAutoSize();
-#else
             doStretch();
-#endif
         }
     }
 }
