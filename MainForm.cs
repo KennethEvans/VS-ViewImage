@@ -263,7 +263,7 @@ namespace ViewImage {
 
         private void doCenter() {
             mode = MODE.CENTER;
-            imagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
             Image image = imagePictureBox.Image;
             int offW = (ClientSize.Width - image.Width) / 2;
             int offH = (ClientSize.Height - image.Height) / 2;
@@ -281,7 +281,7 @@ namespace ViewImage {
 
         private void doNormal() {
             mode = MODE.NORMAL;
-            imagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
             Image image = imagePictureBox.Image;
             imagePictureBox.Location = new Point(0, 0);
             imagePictureBox.ClientSize = new Size(image.Width, image.Height);
