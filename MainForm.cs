@@ -10,24 +10,24 @@ namespace ViewImage {
     /// Summary description for Form1.
     /// </summary>
     public class MainForm : System.Windows.Forms.Form {
-        private PictureBoxSizeMode sizeMode = PictureBoxSizeMode.StretchImage;
         private String imageName = "C:\\Users\\evans\\Pictures\\Assorted\\BirthOfVenus.jpg";
+        enum MODE { NORMAL, CENTER, STRETCH };
+        private MODE mode = MODE.STRETCH;
 
-        private System.Windows.Forms.MainMenu MainMenu;
-        private System.Windows.Forms.MenuItem FileMenu;
-        private System.Windows.Forms.MenuItem FileMenuOpen;
-        private System.Windows.Forms.MenuItem FileMenuExit;
-        private System.Windows.Forms.MenuItem HelpMenu;
-        private System.Windows.Forms.MenuItem HelpMenuAbout;
-        private System.Windows.Forms.PictureBox ImagePictureBox;
+        private System.Windows.Forms.MainMenu mainMenu;
+        private System.Windows.Forms.MenuItem fileMenu;
+        private System.Windows.Forms.MenuItem fileMenuOpen;
+        private System.Windows.Forms.MenuItem fileMenuExit;
+        private System.Windows.Forms.MenuItem helpMenu;
+        private System.Windows.Forms.MenuItem helpMenuAbout;
+        private System.Windows.Forms.PictureBox imagePictureBox;
         private IContainer components;
-        private System.Windows.Forms.MenuItem OptionsMenu;
-        private System.Windows.Forms.MenuItem OptionsSizeModeAutoSize;
-        private System.Windows.Forms.MenuItem OptionsSizeModeCenterImage;
-        private System.Windows.Forms.MenuItem OptionsSizeModeNormal;
-        private System.Windows.Forms.MenuItem OptionsSizeMode;
-        private System.Windows.Forms.MenuItem OptionsFitToImage;
-        private System.Windows.Forms.MenuItem OptionsSizeModeStretchImage;
+        private System.Windows.Forms.MenuItem optionsMenu;
+        private System.Windows.Forms.MenuItem optionsSizeModeCenterImage;
+        private System.Windows.Forms.MenuItem optionsSizeModeNormal;
+        private System.Windows.Forms.MenuItem optionsSizeMode;
+        private System.Windows.Forms.MenuItem optionsFitToImage;
+        private System.Windows.Forms.MenuItem optionsSizeModeStretchImage;
 
         public MainForm() {
             //
@@ -60,138 +60,131 @@ namespace ViewImage {
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
-            this.FileMenu = new System.Windows.Forms.MenuItem();
-            this.FileMenuOpen = new System.Windows.Forms.MenuItem();
-            this.FileMenuExit = new System.Windows.Forms.MenuItem();
-            this.OptionsMenu = new System.Windows.Forms.MenuItem();
-            this.OptionsSizeMode = new System.Windows.Forms.MenuItem();
-            this.OptionsSizeModeAutoSize = new System.Windows.Forms.MenuItem();
-            this.OptionsSizeModeCenterImage = new System.Windows.Forms.MenuItem();
-            this.OptionsSizeModeNormal = new System.Windows.Forms.MenuItem();
-            this.OptionsSizeModeStretchImage = new System.Windows.Forms.MenuItem();
-            this.OptionsFitToImage = new System.Windows.Forms.MenuItem();
-            this.HelpMenu = new System.Windows.Forms.MenuItem();
-            this.HelpMenuAbout = new System.Windows.Forms.MenuItem();
-            this.ImagePictureBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.ImagePictureBox)).BeginInit();
+            this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
+            this.fileMenu = new System.Windows.Forms.MenuItem();
+            this.fileMenuOpen = new System.Windows.Forms.MenuItem();
+            this.fileMenuExit = new System.Windows.Forms.MenuItem();
+            this.optionsMenu = new System.Windows.Forms.MenuItem();
+            this.optionsSizeMode = new System.Windows.Forms.MenuItem();
+            this.optionsSizeModeCenterImage = new System.Windows.Forms.MenuItem();
+            this.optionsSizeModeNormal = new System.Windows.Forms.MenuItem();
+            this.optionsSizeModeStretchImage = new System.Windows.Forms.MenuItem();
+            this.optionsFitToImage = new System.Windows.Forms.MenuItem();
+            this.helpMenu = new System.Windows.Forms.MenuItem();
+            this.helpMenuAbout = new System.Windows.Forms.MenuItem();
+            this.imagePictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenu
             // 
-            this.MainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.FileMenu,
-            this.OptionsMenu,
-            this.HelpMenu});
+            this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.fileMenu,
+            this.optionsMenu,
+            this.helpMenu});
             // 
             // FileMenu
             // 
-            this.FileMenu.Index = 0;
-            this.FileMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.FileMenuOpen,
-            this.FileMenuExit});
-            this.FileMenu.Text = "File";
+            this.fileMenu.Index = 0;
+            this.fileMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.fileMenuOpen,
+            this.fileMenuExit});
+            this.fileMenu.Text = "File";
             // 
             // FileMenuOpen
             // 
-            this.FileMenuOpen.Index = 0;
-            this.FileMenuOpen.Text = "Open...";
-            this.FileMenuOpen.Click += new System.EventHandler(this.MainMenuHandler);
+            this.fileMenuOpen.Index = 0;
+            this.fileMenuOpen.Text = "Open...";
+            this.fileMenuOpen.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // FileMenuExit
             // 
-            this.FileMenuExit.Index = 1;
-            this.FileMenuExit.Text = "Exit";
-            this.FileMenuExit.Click += new System.EventHandler(this.MainMenuHandler);
+            this.fileMenuExit.Index = 1;
+            this.fileMenuExit.Text = "Exit";
+            this.fileMenuExit.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // OptionsMenu
             // 
-            this.OptionsMenu.Index = 1;
-            this.OptionsMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.OptionsSizeMode,
-            this.OptionsFitToImage});
-            this.OptionsMenu.Text = "Options";
+            this.optionsMenu.Index = 1;
+            this.optionsMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.optionsSizeMode,
+            this.optionsFitToImage});
+            this.optionsMenu.Text = "Options";
             // 
             // OptionsSizeMode
             // 
-            this.OptionsSizeMode.Index = 0;
-            this.OptionsSizeMode.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.OptionsSizeModeAutoSize,
-            this.OptionsSizeModeCenterImage,
-            this.OptionsSizeModeNormal,
-            this.OptionsSizeModeStretchImage});
-            this.OptionsSizeMode.Text = "Size Mode";
-            // 
-            // OptionsSizeModeAutoSize
-            // 
-            this.OptionsSizeModeAutoSize.Index = 0;
-            this.OptionsSizeModeAutoSize.RadioCheck = true;
-            this.OptionsSizeModeAutoSize.Text = "Auto Size";
-            this.OptionsSizeModeAutoSize.Click += new System.EventHandler(this.MainMenuHandler);
+            this.optionsSizeMode.Index = 0;
+            this.optionsSizeMode.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.optionsSizeModeCenterImage,
+            this.optionsSizeModeNormal,
+            this.optionsSizeModeStretchImage});
+            this.optionsSizeMode.Text = "Size Mode";
             // 
             // OptionsSizeModeCenterImage
             // 
-            this.OptionsSizeModeCenterImage.Index = 1;
-            this.OptionsSizeModeCenterImage.RadioCheck = true;
-            this.OptionsSizeModeCenterImage.Text = "Center Image";
-            this.OptionsSizeModeCenterImage.Click += new System.EventHandler(this.MainMenuHandler);
+            this.optionsSizeModeCenterImage.Index = 0;
+            this.optionsSizeModeCenterImage.RadioCheck = true;
+            this.optionsSizeModeCenterImage.Text = "Center Image";
+            this.optionsSizeModeCenterImage.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // OptionsSizeModeNormal
             // 
-            this.OptionsSizeModeNormal.Index = 2;
-            this.OptionsSizeModeNormal.RadioCheck = true;
-            this.OptionsSizeModeNormal.Text = "Normal";
-            this.OptionsSizeModeNormal.Click += new System.EventHandler(this.MainMenuHandler);
+            this.optionsSizeModeNormal.Index = 1;
+            this.optionsSizeModeNormal.RadioCheck = true;
+            this.optionsSizeModeNormal.Text = "Normal";
+            this.optionsSizeModeNormal.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // OptionsSizeModeStretchImage
             // 
-            this.OptionsSizeModeStretchImage.Index = 3;
-            this.OptionsSizeModeStretchImage.RadioCheck = true;
-            this.OptionsSizeModeStretchImage.Text = "Stretch Image";
-            this.OptionsSizeModeStretchImage.Click += new System.EventHandler(this.MainMenuHandler);
+            this.optionsSizeModeStretchImage.Index = 2;
+            this.optionsSizeModeStretchImage.RadioCheck = true;
+            this.optionsSizeModeStretchImage.Text = "Stretch Image";
+            this.optionsSizeModeStretchImage.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // OptionsFitToImage
             // 
-            this.OptionsFitToImage.Index = 1;
-            this.OptionsFitToImage.Text = "Fit To Image";
-            this.OptionsFitToImage.Click += new System.EventHandler(this.MainMenuHandler);
+            this.optionsFitToImage.Index = 1;
+            this.optionsFitToImage.Text = "Fit To Image";
+            this.optionsFitToImage.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // HelpMenu
             // 
-            this.HelpMenu.Index = 2;
-            this.HelpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.HelpMenuAbout});
-            this.HelpMenu.Text = "Help";
+            this.helpMenu.Index = 2;
+            this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.helpMenuAbout});
+            this.helpMenu.Text = "Help";
             // 
             // HelpMenuAbout
             // 
-            this.HelpMenuAbout.Index = 0;
-            this.HelpMenuAbout.Text = "About...";
-            this.HelpMenuAbout.Click += new System.EventHandler(this.MainMenuHandler);
+            this.helpMenuAbout.Index = 0;
+            this.helpMenuAbout.Text = "About...";
+            this.helpMenuAbout.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // ImagePictureBox
             // 
-            this.ImagePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ImagePictureBox.Location = new System.Drawing.Point(0, 0);
-            this.ImagePictureBox.Name = "ImagePictureBox";
-            this.ImagePictureBox.Size = new System.Drawing.Size(968, 1062);
-            this.ImagePictureBox.TabIndex = 0;
-            this.ImagePictureBox.TabStop = false;
+            this.imagePictureBox.BackColor = System.Drawing.Color.YellowGreen;
+            this.imagePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.imagePictureBox.Location = new System.Drawing.Point(0, 0);
+            this.imagePictureBox.Name = "ImagePictureBox";
+            this.imagePictureBox.Size = new System.Drawing.Size(968, 1062);
+            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imagePictureBox.TabIndex = 0;
+            this.imagePictureBox.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(13, 31);
             this.AutoScroll = true;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.Maroon;
             this.ClientSize = new System.Drawing.Size(968, 1062);
-            this.Controls.Add(this.ImagePictureBox);
+            this.Controls.Add(this.imagePictureBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Menu = this.MainMenu;
+            this.Menu = this.mainMenu;
             this.Name = "MainForm";
             this.Text = "View Image";
             this.Load += new System.EventHandler(this.OnFormLoad);
             this.Resize += new System.EventHandler(this.OnFormResize);
-            ((System.ComponentModel.ISupportInitialize)(this.ImagePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -210,10 +203,10 @@ namespace ViewImage {
             MessageBox.Show(item.Text + "\n     Index=" + item.Index + "\n     Handle=" +
                 item.Handle,"Information");
 #endif
-            if (sender == FileMenuExit) {
+            if (sender == fileMenuExit) {
                 // FileMenuExit
                 Application.Exit();
-            } else if (sender == FileMenuOpen) {
+            } else if (sender == fileMenuOpen) {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
 
                 openFileDialog.InitialDirectory = "c:\\GIF";
@@ -226,90 +219,106 @@ namespace ViewImage {
                 if (openFileDialog.ShowDialog() == DialogResult.OK) {
                     try {
                         imageName = openFileDialog.FileName;
-                        ImagePictureBox.Image = new Bitmap(imageName);
+                        imagePictureBox.Image = new Bitmap(imageName);
                     } catch {
                         MessageBox.Show("Not a valid image file:\n" + imageName,
                             "Error");
                         return;
                     }
-                    if (sizeMode != PictureBoxSizeMode.AutoSize) {
-                        ImagePictureBox.ClientSize = ClientSize;
-                    }
-                    Invalidate();
+
+                    // Just use the form resize method
+                    OnFormResize(null, null);
                 }
-            } else if (sender == OptionsSizeModeAutoSize) {
-                // OptionsSizeModeAutoSize
-                doAutoSize();
-            } else if (sender == OptionsSizeModeCenterImage) {
+            } else if (sender == optionsSizeModeCenterImage) {
                 // OptionsSizeModeCenterImage
                 doCenter();
-            } else if (sender == OptionsSizeModeNormal) {
+            } else if (sender == optionsSizeModeNormal) {
                 // OptionsSizeModeNormal
                 doNormal();
-            } else if (sender == OptionsSizeModeStretchImage) {
+            } else if (sender == optionsSizeModeStretchImage) {
                 // OptionsSizeModeStretchImage
                 doStretch();
-            } else if (sender == OptionsFitToImage) {
+            } else if (sender == optionsFitToImage) {
                 // OptionsFitToImage
                 doFit();
-            } else if (sender == HelpMenuAbout) {
+            } else if (sender == helpMenuAbout) {
                 // HelpMenuAbout
+                doInfo();
             }
         }
 
-        private void doAutoSize() {
-            sizeMode = PictureBoxSizeMode.AutoSize;
-            this.AutoScroll = true;
-            ImagePictureBox.SizeMode = sizeMode;
-            OptionsSizeModeAutoSize.Checked = true;
-            OptionsSizeModeCenterImage.Checked = false;
-            OptionsSizeModeNormal.Checked = false;
-            OptionsSizeModeStretchImage.Checked = false;
-            Invalidate();
-        }
-
         private void doCenter() {
-            sizeMode = PictureBoxSizeMode.CenterImage;
-            ImagePictureBox.SizeMode = sizeMode;
-            this.AutoScroll = false;
-            ImagePictureBox.ClientSize = ClientSize;
-            OptionsSizeModeAutoSize.Checked = false;
-            OptionsSizeModeCenterImage.Checked = true;
-            OptionsSizeModeNormal.Checked = false;
-            OptionsSizeModeStretchImage.Checked = false;
+            mode = MODE.CENTER;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            Image image = imagePictureBox.Image;
+            int offW = (ClientSize.Width - image.Width) / 2;
+            int offH = (ClientSize.Height - image.Height) / 2;
+            imagePictureBox.Location = new Point(offW, offH);
+            imagePictureBox.ClientSize = new Size(image.Width, image.Height);
+            AutoScroll = true;
+            HorizontalScroll.Maximum = image.Width;
+            VerticalScroll.Maximum = image.Height;
+            optionsSizeModeCenterImage.Checked = true;
+            optionsSizeModeNormal.Checked = false;
+            optionsSizeModeStretchImage.Checked = false;
             Invalidate();
         }
 
         private void doNormal() {
-            sizeMode = PictureBoxSizeMode.Normal;
-            ImagePictureBox.SizeMode = sizeMode;
-            this.AutoScroll = false;
-            ImagePictureBox.ClientSize = ClientSize;
-            OptionsSizeModeAutoSize.Checked = false;
-            OptionsSizeModeCenterImage.Checked = false;
-            OptionsSizeModeNormal.Checked = true;
-            OptionsSizeModeStretchImage.Checked = false;
+            mode = MODE.NORMAL;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            Image image = imagePictureBox.Image;
+            imagePictureBox.Location = new Point(0, 0);
+            imagePictureBox.ClientSize = new Size(image.Width, image.Height);
+            AutoScroll = true;
+            optionsSizeModeCenterImage.Checked = false;
+            optionsSizeModeNormal.Checked = true;
+            optionsSizeModeStretchImage.Checked = false;
             Invalidate();
         }
 
         private void doStretch() {
-            sizeMode = PictureBoxSizeMode.StretchImage;
-            ImagePictureBox.SizeMode = sizeMode;
-            this.AutoScroll = false;
-            ImagePictureBox.ClientSize = ClientSize;
-            OptionsSizeModeAutoSize.Checked = false;
-            OptionsSizeModeCenterImage.Checked = false;
-            OptionsSizeModeNormal.Checked = false;
-            OptionsSizeModeStretchImage.Checked = true;
+            mode = MODE.STRETCH;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            imagePictureBox.Location = new Point(0, 0);
+            imagePictureBox.ClientSize = ClientSize;
+            AutoScroll = false;
+            optionsSizeModeCenterImage.Checked = false;
+            optionsSizeModeNormal.Checked = false;
+            optionsSizeModeStretchImage.Checked = true;
             Invalidate();
         }
 
         private void doFit() {
-            if (sizeMode == PictureBoxSizeMode.AutoSize) {
-                this.AutoScroll = false;
-                ClientSize = ImagePictureBox.Size;
-                Invalidate();
-            }
+            imagePictureBox.ClientSize = imagePictureBox.Image.Size;
+            imagePictureBox.Location = new Point(0, 0);
+            ClientSize = imagePictureBox.Size;
+            Invalidate();
+        }
+
+        private void doInfo() {
+            MessageBox.Show("mode=" + mode
+                + "\nClientSize=" + ClientSize
+                + "\nimagePictureBox.Image.Size" + imagePictureBox.Image.Size
+                + "\nimagePictureBox.Size=" + imagePictureBox.Size
+                + "\nimagePictureBox.ClientSize=" + imagePictureBox.ClientSize
+                + "\nimagePictureBox.Location=" + imagePictureBox.Location
+                + "\nimagePictureBox.SizeMode=" + imagePictureBox.SizeMode
+                + "\nHorizontalScroll.Maximum=" + this.HorizontalScroll.Maximum
+                + "\nHorizontalScroll.Minimum=" + this.HorizontalScroll.Minimum
+                + "\nHorizontalScroll.Value=" + this.HorizontalScroll.Value
+                + "\nHorizontalScroll.Visible=" + this.HorizontalScroll.Visible
+                + "\nHorizontalScroll.SmallChange=" + this.HorizontalScroll.SmallChange
+                + "\nHorizontalScroll.LargeChange=" + this.HorizontalScroll.LargeChange
+                + "\nVerticalScroll.Maximum=" + this.VerticalScroll.Maximum
+                + "\nVerticalScroll.Minimum=" + this.VerticalScroll.Minimum
+                + "\nVerticalScroll.Value=" + this.VerticalScroll.Value
+                + "\nVerticalScroll.Visible=" + this.VerticalScroll.Visible
+                + "\nVerticalScroll.SmallChange=" + this.VerticalScroll.SmallChange
+                + "\nVerticalScroll.LargeChange=" + this.VerticalScroll.LargeChange
+               ,
+                "Information");
+            Invalidate();
         }
 
         private void OnFormResize(object sender, System.EventArgs e) {
@@ -321,20 +330,22 @@ namespace ViewImage {
                 + "\nImagePictureBox.ClientSize.Height=" + ImagePictureBox.ClientSize.Height,
                 "Information");
 #endif
-            switch (sizeMode) {
-                case PictureBoxSizeMode.AutoSize:
+            switch (mode) {
+                case MODE.NORMAL:
+                    doNormal();
                     break;
-                case PictureBoxSizeMode.Normal:
-                case PictureBoxSizeMode.CenterImage:
-                case PictureBoxSizeMode.StretchImage:
-                    ImagePictureBox.ClientSize = ClientSize;
+                case MODE.CENTER:
+                    doCenter();
+                    break;
+                case MODE.STRETCH:
+                    doStretch();
                     break;
             }
             Invalidate();
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
-            ImagePictureBox.Image = new Bitmap(imageName);
+            imagePictureBox.Image = new Bitmap(imageName);
 #if false
             doAutoSize();
 #else
