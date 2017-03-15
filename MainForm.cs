@@ -40,9 +40,11 @@ namespace ViewImage {
             //
             InitializeComponent();
 
-            //
-            // TODO: Add any constructor code after InitializeComponent call
-            //
+#if true
+            // Set background colors for debugging
+            this.BackColor = System.Drawing.Color.Maroon;
+            this.imagePictureBox.BackColor = System.Drawing.Color.YellowGreen;
+#endif
         }
 
         /// <summary>
@@ -193,7 +195,6 @@ namespace ViewImage {
             // 
             // imagePictureBox
             // 
-            this.imagePictureBox.BackColor = System.Drawing.Color.YellowGreen;
             this.imagePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.imagePictureBox.Location = new System.Drawing.Point(0, 0);
             this.imagePictureBox.Name = "imagePictureBox";
@@ -206,7 +207,6 @@ namespace ViewImage {
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(13, 31);
             this.AutoScroll = true;
-            this.BackColor = System.Drawing.Color.Maroon;
             this.ClientSize = new System.Drawing.Size(968, 1062);
             this.Controls.Add(this.imagePictureBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
