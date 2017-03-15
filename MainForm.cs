@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
 using System.Threading;
+using System.IO;
 
 namespace ViewImage {
     /// <summary>
@@ -277,13 +278,17 @@ namespace ViewImage {
 
         private void doCenter() {
             mode = MODE.CENTER;
-            imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-            Image image = imagePictureBox.Image;
-            int offW = (ClientSize.Width - image.Width) / 2;
-            int offH = (ClientSize.Height - image.Height) / 2;
-            imagePictureBox.Location = new Point(offW, offH);
-            imagePictureBox.ClientSize = new Size(image.Width, image.Height);
             AutoScroll = true;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+            if (imagePictureBox.Image != null) {
+                Image image = imagePictureBox.Image;
+                int offW = (ClientSize.Width - image.Width) / 2;
+                int offH = (ClientSize.Height - image.Height) / 2;
+                imagePictureBox.Location = new Point(offW, offH);
+                imagePictureBox.ClientSize = new Size(image.Width, image.Height);
+            } else {
+                imagePictureBox.Location = new Point(0, 0);
+            }
             //HorizontalScroll.Maximum = image.Width;
             //VerticalScroll.Maximum = image.Height;
             optionsSizeModeCenterImage.Checked = true;
@@ -296,11 +301,13 @@ namespace ViewImage {
 
         private void doNormal() {
             mode = MODE.NORMAL;
-            imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-            Image image = imagePictureBox.Image;
-            imagePictureBox.Location = new Point(0, 0);
-            imagePictureBox.ClientSize = new Size(image.Width, image.Height);
             AutoScroll = true;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+            imagePictureBox.Location = new Point(0, 0);
+            if (imagePictureBox.Image != null) {
+                Image image = imagePictureBox.Image;
+                imagePictureBox.ClientSize = new Size(image.Width, image.Height);
+            }
             optionsSizeModeCenterImage.Checked = false;
             optionsSizeModeNormal.Checked = true;
             optionsSizeModeStretchImage.Checked = false;
@@ -311,10 +318,10 @@ namespace ViewImage {
 
         private void doStretch() {
             mode = MODE.STRETCH;
+            AutoScroll = false;
             imagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             imagePictureBox.Location = new Point(0, 0);
             imagePictureBox.ClientSize = ClientSize;
-            AutoScroll = false;
             optionsSizeModeCenterImage.Checked = false;
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = true;
@@ -325,10 +332,10 @@ namespace ViewImage {
 
         private void doZoom() {
             mode = MODE.ZOOM;
+            AutoScroll = false;
             imagePictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             imagePictureBox.Location = new Point(0, 0);
             imagePictureBox.ClientSize = ClientSize;
-            AutoScroll = false;
             optionsSizeModeCenterImage.Checked = false;
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = false;
@@ -339,9 +346,9 @@ namespace ViewImage {
 
         private void doAutoSize() {
             mode = MODE.AUTOSIZE;
+            AutoScroll = true;
             imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
             imagePictureBox.Location = new Point(0, 0);
-            AutoScroll = true;
             optionsSizeModeCenterImage.Checked = false;
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = false;
@@ -427,7 +434,18 @@ namespace ViewImage {
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
-            imagePictureBox.Image = new Bitmap(imageName);
+#if true
+            // Load an initial image
+            if (File.Exists(imageName)) {
+                try {
+                    imagePictureBox.Image = new Bitmap(imageName);
+                } catch {
+                    MessageBox.Show("Not a valid image file:\n" + imageName,
+                        "Error");
+                    return;
+                }
+            }
+#endif
             refresh();
         }
     }
