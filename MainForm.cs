@@ -152,8 +152,16 @@ namespace ViewImage {
             // optionsSizeModeZoomImage
             // 
             this.optionsSizeModeZoomImage.Index = 3;
+            this.optionsSizeModeZoomImage.RadioCheck = true;
             this.optionsSizeModeZoomImage.Text = "Zoom Image";
             this.optionsSizeModeZoomImage.Click += new System.EventHandler(this.MainMenuHandler);
+            // 
+            // menuItemAutoSize
+            // 
+            this.optionsSizeModeAutoSize.Index = 4;
+            this.optionsSizeModeAutoSize.RadioCheck = true;
+            this.optionsSizeModeAutoSize.Text = "AutoSize";
+            this.optionsSizeModeAutoSize.Click += new System.EventHandler(this.MainMenuHandler);
             // 
             // optionsFitToImage
             // 
@@ -191,13 +199,7 @@ namespace ViewImage {
             this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imagePictureBox.TabIndex = 0;
             this.imagePictureBox.TabStop = false;
-            // 
-            // menuItemAutoSize
-            // 
-            this.optionsSizeModeAutoSize.Index = 4;
-            this.optionsSizeModeAutoSize.Text = "AutoSize";
-            this.optionsSizeModeAutoSize.Click += new System.EventHandler(this.MainMenuHandler);
-            // 
+           // 
             // MainForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(13, 31);
@@ -342,7 +344,7 @@ namespace ViewImage {
             optionsSizeModeCenterImage.Checked = false;
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = false;
-            optionsSizeModeZoomImage.Checked = true;
+            optionsSizeModeZoomImage.Checked = false;
             optionsSizeModeAutoSize.Checked = true;
             Invalidate();
         }
