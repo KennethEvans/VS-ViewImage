@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
+using System.Threading;
 
 namespace ViewImage {
     /// <summary>
@@ -12,7 +13,7 @@ namespace ViewImage {
     public class MainForm : System.Windows.Forms.Form {
         private static String imageName = @"C:\Users\evans\Pictures\AAA\Grid-1200x800.png";
         enum MODE { NORMAL, CENTER, STRETCH, ZOOM, AUTOSIZE };
-        private MODE mode = MODE.STRETCH;
+        private MODE mode = MODE.AUTOSIZE;  // (Will be reset in OnFormLoad)
 
         private MenuItem fileMenu;
         private MainMenu mainMenu;
@@ -199,7 +200,7 @@ namespace ViewImage {
             this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imagePictureBox.TabIndex = 0;
             this.imagePictureBox.TabStop = false;
-           // 
+            // 
             // MainForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(13, 31);
@@ -357,7 +358,9 @@ namespace ViewImage {
         }
 
         private void doInfo() {
-            MessageBox.Show("mode=" + mode
+
+            string msg = DateTime.Now.ToString("f")
+                + "\nmode=" + mode
                 + "\nClientSize=" + ClientSize
                 + "\nLocation=" + Location
                 + "\nimagePictureBox.Image.Size" + imagePictureBox.Image.Size
@@ -377,8 +380,14 @@ namespace ViewImage {
                 + "\nVerticalScroll.Visible=" + this.VerticalScroll.Visible
                 + "\nVerticalScroll.SmallChange=" + this.VerticalScroll.SmallChange
                 + "\nVerticalScroll.LargeChange=" + this.VerticalScroll.LargeChange
-               ,
-                "Debug Information");
+               ;
+#if false
+            MessageBox.Show(msg, "Debug Information");
+#else
+            // Allow it to stay up
+            Thread t = new Thread(() => MessageBox.Show(msg, "Debug Information"));
+            t.Start();
+#endif
         }
 
         private void doHelp() {
@@ -407,12 +416,19 @@ namespace ViewImage {
         }
 
         private void OnFormResize(object sender, System.EventArgs e) {
+            Point pictureBoxLocation = imagePictureBox.Location;
+            if (imagePictureBox.Image == null) {
+                return;
+            }
             refresh();
+            if (pictureBoxLocation != null && mode == MODE.AUTOSIZE) {
+                imagePictureBox.Location = pictureBoxLocation;
+            }
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
             imagePictureBox.Image = new Bitmap(imageName);
-            doStretch();
+            refresh();
         }
     }
 }
