@@ -10,7 +10,7 @@ namespace ViewImage {
     /// Summary description for Form1.
     /// </summary>
     public class MainForm : System.Windows.Forms.Form {
-        private String imageName = "C:\\Users\\evans\\Pictures\\Assorted\\BirthOfVenus.jpg";
+        private static String imageName = @"C:\Users\evans\Pictures\AAA\Grid-1200x800.png";
         enum MODE { NORMAL, CENTER, STRETCH, ZOOM };
         private MODE mode = MODE.STRETCH;
 
@@ -270,8 +270,8 @@ namespace ViewImage {
             imagePictureBox.Location = new Point(offW, offH);
             imagePictureBox.ClientSize = new Size(image.Width, image.Height);
             AutoScroll = true;
-            HorizontalScroll.Maximum = image.Width;
-            VerticalScroll.Maximum = image.Height;
+            //HorizontalScroll.Maximum = image.Width;
+            //VerticalScroll.Maximum = image.Height;
             optionsSizeModeCenterImage.Checked = true;
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = false;
@@ -329,6 +329,7 @@ namespace ViewImage {
         private void doInfo() {
             MessageBox.Show("mode=" + mode
                 + "\nClientSize=" + ClientSize
+                + "\nLocation=" + Location
                 + "\nimagePictureBox.Image.Size" + imagePictureBox.Image.Size
                 + "\nimagePictureBox.Size=" + imagePictureBox.Size
                 + "\nimagePictureBox.ClientSize=" + imagePictureBox.ClientSize
