@@ -11,25 +11,26 @@ namespace ViewImage {
     /// </summary>
     public class MainForm : System.Windows.Forms.Form {
         private static String imageName = @"C:\Users\evans\Pictures\AAA\Grid-1200x800.png";
-        enum MODE { NORMAL, CENTER, STRETCH, ZOOM };
+        enum MODE { NORMAL, CENTER, STRETCH, ZOOM, AUTOSIZE };
         private MODE mode = MODE.STRETCH;
 
-        private System.Windows.Forms.MainMenu mainMenu;
-        private System.Windows.Forms.MenuItem fileMenu;
-        private System.Windows.Forms.MenuItem fileMenuOpen;
-        private System.Windows.Forms.MenuItem fileMenuExit;
-        private System.Windows.Forms.MenuItem helpMenu;
-        private System.Windows.Forms.MenuItem helpMenuAbout;
-        private System.Windows.Forms.PictureBox imagePictureBox;
-        private IContainer components;
-        private System.Windows.Forms.MenuItem optionsMenu;
-        private System.Windows.Forms.MenuItem optionsSizeModeCenterImage;
-        private System.Windows.Forms.MenuItem optionsSizeModeNormal;
-        private System.Windows.Forms.MenuItem optionsSizeMode;
-        private System.Windows.Forms.MenuItem optionsFitToImage;
+        private MenuItem fileMenu;
+        private MainMenu mainMenu;
+        private MenuItem fileMenuOpen;
+        private MenuItem fileMenuExit;
+        private MenuItem optionsMenu;
+        private MenuItem optionsSizeMode;
+        private MenuItem optionsSizeModeCenterImage;
+        private MenuItem optionsSizeModeStretchImage;
+        private MenuItem optionsSizeModeNormal;
         private MenuItem optionsSizeModeZoomImage;
+        private MenuItem optionsSizeModeAutoSize;
+        private MenuItem optionsFitToImage;
+        private MenuItem helpMenu;
         private MenuItem helpMenuInformation;
-        private System.Windows.Forms.MenuItem optionsSizeModeStretchImage;
+        private MenuItem helpMenuAbout;
+        private IContainer components;
+        private PictureBox imagePictureBox;
 
         public MainForm() {
             //
@@ -74,9 +75,10 @@ namespace ViewImage {
             this.optionsSizeModeZoomImage = new System.Windows.Forms.MenuItem();
             this.optionsFitToImage = new System.Windows.Forms.MenuItem();
             this.helpMenu = new System.Windows.Forms.MenuItem();
-            this.helpMenuAbout = new System.Windows.Forms.MenuItem();
             this.helpMenuInformation = new System.Windows.Forms.MenuItem();
+            this.helpMenuAbout = new System.Windows.Forms.MenuItem();
             this.imagePictureBox = new System.Windows.Forms.PictureBox();
+            this.optionsSizeModeAutoSize = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,7 +124,8 @@ namespace ViewImage {
             this.optionsSizeModeCenterImage,
             this.optionsSizeModeNormal,
             this.optionsSizeModeStretchImage,
-            this.optionsSizeModeZoomImage});
+            this.optionsSizeModeZoomImage,
+            this.optionsSizeModeAutoSize});
             this.optionsSizeMode.Text = "Size Mode";
             // 
             // optionsSizeModeCenterImage
@@ -189,6 +192,12 @@ namespace ViewImage {
             this.imagePictureBox.TabIndex = 0;
             this.imagePictureBox.TabStop = false;
             // 
+            // menuItemAutoSize
+            // 
+            this.optionsSizeModeAutoSize.Index = 4;
+            this.optionsSizeModeAutoSize.Text = "AutoSize";
+            this.optionsSizeModeAutoSize.Click += new System.EventHandler(this.MainMenuHandler);
+            // 
             // MainForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(13, 31);
@@ -252,6 +261,8 @@ namespace ViewImage {
                 doStretch();
             } else if (sender == optionsSizeModeZoomImage) {
                 doZoom();
+            } else if (sender == optionsSizeModeAutoSize) {
+                doAutoSize();
             } else if (sender == optionsFitToImage) {
                 doFit();
             } else if (sender == helpMenuInformation) {
@@ -276,6 +287,7 @@ namespace ViewImage {
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = false;
             optionsSizeModeZoomImage.Checked = false;
+            optionsSizeModeAutoSize.Checked = false;
             Invalidate();
         }
 
@@ -290,6 +302,7 @@ namespace ViewImage {
             optionsSizeModeNormal.Checked = true;
             optionsSizeModeStretchImage.Checked = false;
             optionsSizeModeZoomImage.Checked = false;
+            optionsSizeModeAutoSize.Checked = false;
             Invalidate();
         }
 
@@ -303,6 +316,7 @@ namespace ViewImage {
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = true;
             optionsSizeModeZoomImage.Checked = false;
+            optionsSizeModeAutoSize.Checked = false;
             Invalidate();
         }
 
@@ -316,6 +330,20 @@ namespace ViewImage {
             optionsSizeModeNormal.Checked = false;
             optionsSizeModeStretchImage.Checked = false;
             optionsSizeModeZoomImage.Checked = true;
+            optionsSizeModeAutoSize.Checked = false;
+            Invalidate();
+        }
+
+        private void doAutoSize() {
+            mode = MODE.AUTOSIZE;
+            imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+            imagePictureBox.Location = new Point(0, 0);
+            AutoScroll = true;
+            optionsSizeModeCenterImage.Checked = false;
+            optionsSizeModeNormal.Checked = false;
+            optionsSizeModeStretchImage.Checked = false;
+            optionsSizeModeZoomImage.Checked = true;
+            optionsSizeModeAutoSize.Checked = true;
             Invalidate();
         }
 
@@ -368,6 +396,9 @@ namespace ViewImage {
                     break;
                 case MODE.ZOOM:
                     doZoom();
+                    break;
+                case MODE.AUTOSIZE:
+                    doAutoSize();
                     break;
             }
             Invalidate();
