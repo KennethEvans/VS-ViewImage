@@ -13,6 +13,7 @@ namespace ViewImage {
     /// </summary>
     public class MainForm : System.Windows.Forms.Form {
         private static String imageName = @"C:\Users\evans\Pictures\AAA\Grid-1200x800.png";
+        //private static String imageName = @"C:\Users\evans\Pictures\Assorted\DAZ.Dogfight.15017.jpg";
         enum MODE { NORMAL, CENTER, STRETCH, ZOOM, AUTOSIZE };
         private MODE mode = MODE.AUTOSIZE;  // (Will be reset in OnFormLoad)
 
