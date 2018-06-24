@@ -78,12 +78,12 @@ namespace ViewImage {
             this.optionsSizeModeNormal = new System.Windows.Forms.MenuItem();
             this.optionsSizeModeStretchImage = new System.Windows.Forms.MenuItem();
             this.optionsSizeModeZoomImage = new System.Windows.Forms.MenuItem();
+            this.optionsSizeModeAutoSize = new System.Windows.Forms.MenuItem();
             this.optionsFitToImage = new System.Windows.Forms.MenuItem();
             this.helpMenu = new System.Windows.Forms.MenuItem();
             this.helpMenuInformation = new System.Windows.Forms.MenuItem();
             this.helpMenuAbout = new System.Windows.Forms.MenuItem();
             this.imagePictureBox = new System.Windows.Forms.PictureBox();
-            this.optionsSizeModeAutoSize = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,7 +161,7 @@ namespace ViewImage {
             this.optionsSizeModeZoomImage.Text = "Zoom Image";
             this.optionsSizeModeZoomImage.Click += new System.EventHandler(this.MainMenuHandler);
             // 
-            // menuItemAutoSize
+            // optionsSizeModeAutoSize
             // 
             this.optionsSizeModeAutoSize.Index = 4;
             this.optionsSizeModeAutoSize.RadioCheck = true;

@@ -24,18 +24,19 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageViewer));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemTopMost = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemZoom = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemZoomIn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemZoomOut = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemZoom100 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemZoomFill = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemZoom100 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -71,14 +72,33 @@
             this.toolStripMenuItemTopMost,
             this.toolStripMenuItemZoom});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(361, 249);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(214, 194);
+            // 
+            // toolStripMenuItemOpen
+            // 
+            this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
+            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(213, 46);
+            this.toolStripMenuItemOpen.Text = "Open...";
+            this.toolStripMenuItemOpen.Click += new System.EventHandler(this.OnOpenClick);
+            // 
+            // toolStripMenuItemInfo
+            // 
+            this.toolStripMenuItemInfo.Name = "toolStripMenuItemInfo";
+            this.toolStripMenuItemInfo.Size = new System.Drawing.Size(213, 46);
+            this.toolStripMenuItemInfo.Text = "Info..";
+            this.toolStripMenuItemInfo.Click += new System.EventHandler(this.OnInfoClick);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(210, 6);
             // 
             // toolStripMenuItemTopMost
             // 
             this.toolStripMenuItemTopMost.Checked = true;
             this.toolStripMenuItemTopMost.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItemTopMost.Name = "toolStripMenuItemTopMost";
-            this.toolStripMenuItemTopMost.Size = new System.Drawing.Size(360, 46);
+            this.toolStripMenuItemTopMost.Size = new System.Drawing.Size(213, 46);
             this.toolStripMenuItemTopMost.Text = "TopMost";
             this.toolStripMenuItemTopMost.Click += new System.EventHandler(this.OnTopMostClick);
             // 
@@ -90,55 +110,36 @@
             this.toolStripMenuItemZoomFill,
             this.toolStripMenuItemZoom100});
             this.toolStripMenuItemZoom.Name = "toolStripMenuItemZoom";
-            this.toolStripMenuItemZoom.Size = new System.Drawing.Size(360, 46);
+            this.toolStripMenuItemZoom.Size = new System.Drawing.Size(213, 46);
             this.toolStripMenuItemZoom.Text = "Zoom";
             // 
             // toolStripMenuItemZoomIn
             // 
             this.toolStripMenuItemZoomIn.Name = "toolStripMenuItemZoomIn";
-            this.toolStripMenuItemZoomIn.Size = new System.Drawing.Size(396, 46);
+            this.toolStripMenuItemZoomIn.Size = new System.Drawing.Size(205, 46);
             this.toolStripMenuItemZoomIn.Text = "In";
             this.toolStripMenuItemZoomIn.Click += new System.EventHandler(this.OnZoomInClick);
             // 
             // toolStripMenuItemZoomOut
             // 
             this.toolStripMenuItemZoomOut.Name = "toolStripMenuItemZoomOut";
-            this.toolStripMenuItemZoomOut.Size = new System.Drawing.Size(396, 46);
+            this.toolStripMenuItemZoomOut.Size = new System.Drawing.Size(205, 46);
             this.toolStripMenuItemZoomOut.Text = "Out";
             this.toolStripMenuItemZoomOut.Click += new System.EventHandler(this.OnZoomOutClick);
-            // 
-            // toolStripMenuItemZoom100
-            // 
-            this.toolStripMenuItemZoom100.Name = "toolStripMenuItemZoom100";
-            this.toolStripMenuItemZoom100.Size = new System.Drawing.Size(396, 46);
-            this.toolStripMenuItemZoom100.Text = "100%";
-            this.toolStripMenuItemZoom100.Click += new System.EventHandler(this.OnZoom100Click);
             // 
             // toolStripMenuItemZoomFill
             // 
             this.toolStripMenuItemZoomFill.Name = "toolStripMenuItemZoomFill";
-            this.toolStripMenuItemZoomFill.Size = new System.Drawing.Size(396, 46);
+            this.toolStripMenuItemZoomFill.Size = new System.Drawing.Size(205, 46);
             this.toolStripMenuItemZoomFill.Text = "Fill";
             this.toolStripMenuItemZoomFill.Click += new System.EventHandler(this.OnZoomFill);
             // 
-            // toolStripMenuItemOpen
+            // toolStripMenuItemZoom100
             // 
-            this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(360, 46);
-            this.toolStripMenuItemOpen.Text = "Open...";
-            this.toolStripMenuItemOpen.Click += new System.EventHandler(this.OnOpenClick);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(357, 6);
-            // 
-            // toolStripMenuItemInfo
-            // 
-            this.toolStripMenuItemInfo.Name = "toolStripMenuItemInfo";
-            this.toolStripMenuItemInfo.Size = new System.Drawing.Size(360, 46);
-            this.toolStripMenuItemInfo.Text = "Info..";
-            this.toolStripMenuItemInfo.Click += new System.EventHandler(this.OnInfoClick);
+            this.toolStripMenuItemZoom100.Name = "toolStripMenuItemZoom100";
+            this.toolStripMenuItemZoom100.Size = new System.Drawing.Size(205, 46);
+            this.toolStripMenuItemZoom100.Text = "100%";
+            this.toolStripMenuItemZoom100.Click += new System.EventHandler(this.OnZoom100Click);
             // 
             // ImageViewer
             // 
@@ -147,6 +148,7 @@
             this.ClientSize = new System.Drawing.Size(968, 662);
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ImageViewer";
             this.Text = "Image Viewer";
             this.Load += new System.EventHandler(this.OnFormLoad);
