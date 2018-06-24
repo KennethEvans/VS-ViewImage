@@ -33,6 +33,9 @@
             this.toolStripMenuItemZoomOut = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemZoom100 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemZoomFill = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -62,17 +65,20 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemOpen,
+            this.toolStripMenuItemInfo,
+            this.toolStripSeparator1,
             this.toolStripMenuItemTopMost,
             this.toolStripMenuItemZoom});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(214, 96);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(361, 249);
             // 
             // toolStripMenuItemTopMost
             // 
             this.toolStripMenuItemTopMost.Checked = true;
             this.toolStripMenuItemTopMost.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripMenuItemTopMost.Name = "toolStripMenuItemTopMost";
-            this.toolStripMenuItemTopMost.Size = new System.Drawing.Size(213, 46);
+            this.toolStripMenuItemTopMost.Size = new System.Drawing.Size(360, 46);
             this.toolStripMenuItemTopMost.Text = "TopMost";
             this.toolStripMenuItemTopMost.Click += new System.EventHandler(this.OnTopMostClick);
             // 
@@ -84,7 +90,7 @@
             this.toolStripMenuItemZoomFill,
             this.toolStripMenuItemZoom100});
             this.toolStripMenuItemZoom.Name = "toolStripMenuItemZoom";
-            this.toolStripMenuItemZoom.Size = new System.Drawing.Size(213, 46);
+            this.toolStripMenuItemZoom.Size = new System.Drawing.Size(360, 46);
             this.toolStripMenuItemZoom.Text = "Zoom";
             // 
             // toolStripMenuItemZoomIn
@@ -92,21 +98,21 @@
             this.toolStripMenuItemZoomIn.Name = "toolStripMenuItemZoomIn";
             this.toolStripMenuItemZoomIn.Size = new System.Drawing.Size(396, 46);
             this.toolStripMenuItemZoomIn.Text = "In";
-            this.toolStripMenuItemZoomIn.Click += new System.EventHandler(this.OnZoomIn);
+            this.toolStripMenuItemZoomIn.Click += new System.EventHandler(this.OnZoomInClick);
             // 
             // toolStripMenuItemZoomOut
             // 
             this.toolStripMenuItemZoomOut.Name = "toolStripMenuItemZoomOut";
             this.toolStripMenuItemZoomOut.Size = new System.Drawing.Size(396, 46);
             this.toolStripMenuItemZoomOut.Text = "Out";
-            this.toolStripMenuItemZoomOut.Click += new System.EventHandler(this.OnZoomOut);
+            this.toolStripMenuItemZoomOut.Click += new System.EventHandler(this.OnZoomOutClick);
             // 
             // toolStripMenuItemZoom100
             // 
             this.toolStripMenuItemZoom100.Name = "toolStripMenuItemZoom100";
             this.toolStripMenuItemZoom100.Size = new System.Drawing.Size(396, 46);
             this.toolStripMenuItemZoom100.Text = "100%";
-            this.toolStripMenuItemZoom100.Click += new System.EventHandler(this.OnZoom100);
+            this.toolStripMenuItemZoom100.Click += new System.EventHandler(this.OnZoom100Click);
             // 
             // toolStripMenuItemZoomFill
             // 
@@ -114,6 +120,25 @@
             this.toolStripMenuItemZoomFill.Size = new System.Drawing.Size(396, 46);
             this.toolStripMenuItemZoomFill.Text = "Fill";
             this.toolStripMenuItemZoomFill.Click += new System.EventHandler(this.OnZoomFill);
+            // 
+            // toolStripMenuItemOpen
+            // 
+            this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
+            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(360, 46);
+            this.toolStripMenuItemOpen.Text = "Open...";
+            this.toolStripMenuItemOpen.Click += new System.EventHandler(this.OnOpenClick);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(357, 6);
+            // 
+            // toolStripMenuItemInfo
+            // 
+            this.toolStripMenuItemInfo.Name = "toolStripMenuItemInfo";
+            this.toolStripMenuItemInfo.Size = new System.Drawing.Size(360, 46);
+            this.toolStripMenuItemInfo.Text = "Info..";
+            this.toolStripMenuItemInfo.Click += new System.EventHandler(this.OnInfoClick);
             // 
             // ImageViewer
             // 
@@ -144,6 +169,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoomOut;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoom100;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoomFill;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemInfo;
     }
 }
 

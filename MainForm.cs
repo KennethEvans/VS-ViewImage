@@ -240,9 +240,12 @@ namespace ViewImage {
             } else if (sender == fileMenuOpen) {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
 
-                openFileDialog.InitialDirectory = "c:\\GIF";
-                openFileDialog.Filter = "All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 2;
+                //openFileDialog.InitialDirectory = "c:\\GIF";
+                openFileDialog.Filter = "Image Files|*.png;*.bmp;*.jpg;*.jpeg;*.jpe;*.jfif;*.tif;*.tiff;*.gif"
+                    + "|JPEG|*.jpg;*.jpeg;*.jpe"
+                    + "|PNG|*.png"
+                    + "|All files|*.*";
+                openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.CheckFileExists = true;
                 openFileDialog.CheckPathExists = true;

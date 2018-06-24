@@ -1,4 +1,5 @@
 ﻿#undef DOTEST
+#define doInitialImage
 
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Image_Viewer {
         private static double ZOOM_FACTOR = 1.1;
         private double zoom = 1;
         private Bitmap originalImage;
+        private string fileName = INITIAL_IMAGE;
 
         public ImageViewer() {
             InitializeComponent();
@@ -32,9 +34,27 @@ namespace Image_Viewer {
         }
 
         private void doInfo() {
+            string msg;
+            if(originalImage == null) {
+                msg = "No image";
+            } else {
+                double bytes = new FileInfo(fileName).Length;
+                double kbytes = bytes / 1024.0;
+                double mbytes = kbytes / 1024.0;
+                double gbytes = mbytes / 1024.0;
+                msg = fileName;
+                msg += "\nImage Size: " + originalImage.Size.Width + "x" + originalImage.Size.Height;
+                msg += "\nFile Size: "
+                    + String.Format("{0:0.00} GB, {1:0.00} MB, {2:0.00} KB, {3:0} bytes",
+                    gbytes, mbytes, kbytes, bytes);
+                msg += "\nCreated: " + File.GetCreationTime(fileName);
+                msg += "\nModified: " + File.GetLastWriteTime(fileName);
+                msg += "\nAccessed: " + File.GetLastAccessTime(fileName);
+            }
 
+#if false
             string msg = DateTime.Now.ToString("f")
-                //+ "\nmode=" + mode
+                + "\nmode=" + mode
                 + "\nClientSize=" + ClientSize
                 + "\nLocation=" + Location
                 + "\npictureBox1.Image.Size" + pictureBox1.Image.Size
@@ -55,11 +75,12 @@ namespace Image_Viewer {
                 + "\nVerticalScroll.SmallChange=" + this.VerticalScroll.SmallChange
                 + "\nVerticalScroll.LargeChange=" + this.VerticalScroll.LargeChange
                ;
+#endif
 #if false
-            MessageBox.Show(msg, "Debug Information");
+            MessageBox.Show(msg, " File Information");
 #else
             // Allow it to stay up
-            Thread t = new Thread(() => MessageBox.Show(msg, "Debug Information"));
+            Thread t = new Thread(() => MessageBox.Show(msg, "File Information"));
             t.Start();
 #endif
         }
@@ -136,12 +157,13 @@ namespace Image_Viewer {
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
-#if true
+#if doInitialImage
             // Load an initial image
             if (File.Exists(INITIAL_IMAGE)) {
                 try {
                     originalImage = new Bitmap(INITIAL_IMAGE);
                     pictureBox1.Image = originalImage;
+                    zoomFill();
                 } catch {
                     MessageBox.Show("Not a valid image file:\n" + INITIAL_IMAGE,
                         "Error");
@@ -167,15 +189,15 @@ namespace Image_Viewer {
             }
         }
 
-        private void OnZoomIn(object sender, EventArgs e) {
+        private void OnZoomInClick(object sender, EventArgs e) {
             zoomIn();
         }
 
-        private void OnZoomOut(object sender, EventArgs e) {
+        private void OnZoomOutClick(object sender, EventArgs e) {
             zoomOut();
         }
 
-        private void OnZoom100(object sender, EventArgs e) {
+        private void OnZoom100Click(object sender, EventArgs e) {
             zoom100();
         }
 
@@ -186,6 +208,40 @@ namespace Image_Viewer {
 
         private void OnZoomFill(object sender, EventArgs e) {
             zoomFill();
+        }
+
+        private void OnOpenClick(object sender, EventArgs e) {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files|*.png;*.bmp;*.jpg;*.jpeg;*.jpe;*.jfif;*.tif;*.tiff;*.gif"
+                + "|JPEG|*.jpg;*.jpeg;*.jpe"
+                + "|PNG|*.png"
+                + "|All files|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.CheckPathExists = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                string imageName="Unknown";
+                try {
+                    imageName = openFileDialog.FileName;
+                    Bitmap newImage = new Bitmap(imageName);
+                    pictureBox1.Image = newImage;
+                    originalImage = newImage;
+                    fileName = imageName;
+                    zoom = 1;
+                    zoomFill();
+                } catch {
+                    MessageBox.Show("Not a valid image file:\n" + imageName,
+                        "Error");
+                    return;
+                }
+                refresh();
+            }
+        }
+
+        private void OnInfoClick(object sender, EventArgs e) {
+            doInfo();
         }
     }
 }
