@@ -1,4 +1,4 @@
-﻿namespace Map_Lines {
+﻿namespace Image_Viewer_2 {
     partial class MainForm {
         /// <summary>
         /// Required designer variable.

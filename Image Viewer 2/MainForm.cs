@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Map_Lines {
+namespace Image_Viewer_2 {
     public partial class MainForm : Form {
         public static readonly String NL = Environment.NewLine;
         public static readonly float MOUSE_WHEEL_ZOOM_FACTOR = 0.001F;
