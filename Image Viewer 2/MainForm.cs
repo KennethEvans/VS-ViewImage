@@ -5,6 +5,7 @@ using KEUtils.Utils;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -21,6 +22,15 @@ namespace Image_Viewer_2 {
         public Point PanStart { get; set; }
         float ZoomFactor { get; set; }
         public RectangleF ViewRectangle { get; set; }
+        public float LeftMargin { get; set; } = 1f;
+        public float RightMargin { get; set; } = 1f;
+        public float TopMargin { get; set; } = 1f;
+        public float BottomMargin { get; set; } = 1f;
+
+        public PointF DPI { get; set; }
+        public ImageList ToolsImageList { get; set; }
+        public Size ToolsImageSize { get; set; }
+
 
         public MainForm() {
             InitializeComponent();
@@ -80,7 +90,57 @@ namespace Image_Viewer_2 {
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
-
+            // DPI
+            float dpiX, dpiY;
+            using (Graphics g = this.CreateGraphics()) {
+                dpiX = g.DpiX;
+                dpiY = g.DpiY;
+            }
+            DPI = new PointF(dpiX, dpiY);
+            ToolsImageSize = new Size((int)(16 * dpiX / 96), (int)(16 * dpiY / 96));
+            // Handle the cistom icons for DPI
+            // Make ToolsImageList
+            ToolsImageList = new ImageList();
+            ToolsImageList.ImageSize = ToolsImageSize;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string[] resourceNames = GetType().Assembly.GetManifestResourceNames();
+            Stream imageStream = assembly.GetManifestResourceStream(
+                "Image_Viewer_2.icons.fit-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("fit", Image.FromStream(imageStream));
+            }
+            imageStream = assembly.GetManifestResourceStream(
+                "Image_Viewer_2.icons.hand-cursor-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("hand", Image.FromStream(imageStream));
+            }
+            imageStream = assembly.GetManifestResourceStream(
+                "Image_Viewer_2.icons.landscape-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("landscape", Image.FromStream(imageStream));
+            }
+            imageStream = assembly.GetManifestResourceStream(
+                "Image_Viewer_2.icons.portrait-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("portrait", Image.FromStream(imageStream));
+            }
+            imageStream = assembly.GetManifestResourceStream(
+                "Image_Viewer_2.icons.refresh-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("refresh", Image.FromStream(imageStream));
+            }
+            imageStream = assembly.GetManifestResourceStream(
+                "Image_Viewer_2.icons.zoom-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("zoom", Image.FromStream(imageStream));
+            }
+            toolStrip1.ImageList = ToolsImageList;
+            fitToolStripButton.ImageKey = "fit";
+            handToolStripButton.ImageKey = "hand";
+            landscapeToolStripButton.ImageKey = "landscape";
+            portraitToolStripButton.ImageKey = "portrait";
+            refreshToolStripButton.ImageKey = "refresh";
+            zoomToolStripDropDownButton.ImageKey = "zoom";
         }
 
         private void OnFormShown(object sender, EventArgs e) {
@@ -157,32 +217,31 @@ namespace Image_Viewer_2 {
             }
         }
 
-        private void OnCalibrationClick(object sender, EventArgs e) {
-
+        private void OnSaveClick(object sender, EventArgs e) {
+            string title = "OnSaveClick";
+            string message = "Save: Not implemented yet";
+            MessageBox.Show(message, title);
         }
 
-        private void OnLinesClick(object sender, EventArgs e) {
-
+        private void OnSaveAsClick(object sender, EventArgs e) {
+            string title = "OnSaveAsClick";
+        string message = "Save As: Not implemented yet";
+            MessageBox.Show(message, title);
         }
 
-        private void OnLinesFromGpxClick(object sender, EventArgs e) {
-
+        private void OnPrintClick(object sender, EventArgs e) {
+            PrintPictureBox ppb = new PrintPictureBox(Image);
+            ppb.showPrintDialog();
         }
 
-        private void OnSaveLinesClick(object sender, EventArgs e) {
-
+        private void OnPrintPreviewClick(object sender, EventArgs e) {
+            PrintPictureBox ppb = new PrintPictureBox(Image);
+            ppb.showPrintPreview();
         }
 
-        private void OnLaveLinesPngClick(object sender, EventArgs e) {
-
-        }
-
-        private void OnLaveLinesPngImageClick(object sender, EventArgs e) {
-
-        }
-
-        private void OnSaveGpxClick(object sender, EventArgs e) {
-
+        private void OnPageSetupClick(object sender, EventArgs e) {
+            PrintPictureBox ppb = new PrintPictureBox(Image);
+            ppb.showPageSetupDialog();
         }
 
         private void OnExitClick(object sender, EventArgs e) {
@@ -194,6 +253,10 @@ namespace Image_Viewer_2 {
             else if (sender == toolStripMenuItem100) ZoomFactor = 1.0F;
             else if (sender == toolStripMenuItem50) ZoomFactor = 2.0F;
             else if (sender == toolStripMenuItem25) ZoomFactor = 4.0F;
+            else if (sender == zoom200ToolStripMenuItem) ZoomFactor = 0.5F;
+            else if (sender == zoom100ToolStripMenuItem) ZoomFactor = 1.0F;
+            else if (sender == zoom50ToolStripMenuItem) ZoomFactor = 2.0F;
+            else if (sender == zoom25ToolStripMenuItem) ZoomFactor = 4.0F;
             zoomImage();
         }
 
@@ -208,6 +271,47 @@ namespace Image_Viewer_2 {
 
         private void OnResetClick(object sender, EventArgs e) {
             resetImage();
+        }
+
+        private void OnFitClicked(object sender, EventArgs e) {
+            resetViewToFit();
+        }
+
+        private void OnCutClick(object sender, EventArgs e) {
+            string title = "OnCutClick";
+            string message = "Cut: Not implemented yet";
+            MessageBox.Show(message, title);
+        }
+
+        private void OnCopyClick(object sender, EventArgs e) {
+            string title = "OnCopyClick";
+            string message = "Copy: Not implemented yet";
+            MessageBox.Show(message, title);
+        }
+
+        private void OnPasteClick(object sender, EventArgs e) {
+            string title = "OnPasteClick";
+            string message = "Paste: Not implemented yet";
+            MessageBox.Show(message, title);
+        }
+
+        private void OnHelpClick(object sender, EventArgs e) {
+            string title = "OnHelpClick";
+            string message = "Help: Not implemented yet";
+            MessageBox.Show(message, title);
+        }
+
+
+        private void OnLandscapeClicked(object sender, EventArgs e) {
+            string title = "OnLandscapeClick";
+            string message = "Landscape: Not implemented yet";
+            MessageBox.Show(message, title);
+        }
+
+        private void OnPortraitClicked(object sender, EventArgs e) {
+            string title = "OnPortraitClick";
+            string message = "Portrait: Not implemented yet";
+            MessageBox.Show(message, title);
         }
 
         private void OnPictureBoxMouseDown(object sender, MouseEventArgs e) {
@@ -252,7 +356,7 @@ namespace Image_Viewer_2 {
             Assembly assembly = Assembly.GetExecutingAssembly();
             Image image = null;
             //try {
-            //    image = Image.FromFile(@".\Help\GPXViewer256.png");
+            //    image = Image.FromFile(@".\Help\Image Viewer 2256.png");
             //} catch (Exception ex) {
             //    Utils.excMsg("Failed to get AboutBox image", ex);
             //}
