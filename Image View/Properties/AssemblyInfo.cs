@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Image Viewer 2")]
+[assembly: AssemblyTitle("Image View")]
 [assembly: AssemblyDescription("If this program works, it was written by Kenneth Evans.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("kenevans.net")]
-[assembly: AssemblyProduct("Image Viewer 2")]
+[assembly: AssemblyProduct("Image View")]
 [assembly: AssemblyCopyright("Copyright © Kenneth Evans 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

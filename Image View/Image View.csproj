@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{054B0139-2A2C-4DAF-BCE8-084425E1E67E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Image_Viewer_2</RootNamespace>
-    <AssemblyName>Image Viewer 2</AssemblyName>
+    <RootNamespace>Image_View</RootNamespace>
+    <AssemblyName>Image View</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -39,7 +39,7 @@
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Image Viewer.ico</ApplicationIcon>
+    <ApplicationIcon>Image View.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -102,7 +102,7 @@
     <EmbeddedResource Include="icons\portrait-icon.png" />
     <EmbeddedResource Include="icons\refresh-icon.png" />
     <EmbeddedResource Include="icons\zoom-icon.png" />
-    <Content Include="Image Viewer.ico" />
+    <Content Include="Image View.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

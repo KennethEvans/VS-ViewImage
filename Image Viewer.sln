@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewImage", "ViewImage\View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image Viewer", "Image Viewer\Image Viewer.csproj", "{A7975D33-5262-4298-B3B9-9395FDE330F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image Viewer 2", "Image Viewer 2\Image Viewer 2.csproj", "{054B0139-2A2C-4DAF-BCE8-084425E1E67E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image View", "Image View\Image View.csproj", "{054B0139-2A2C-4DAF-BCE8-084425E1E67E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B901F47-79E4-4577-9CE7-80A83EE72E45}"
 	ProjectSection(SolutionItems) = preProject

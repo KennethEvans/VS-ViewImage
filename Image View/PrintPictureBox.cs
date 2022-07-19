@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 
-namespace Image_Viewer_2 {
+namespace Image_View {
     public class PrintPictureBox {
         Image Image { get; set; }
         PrintDocument PrintDocument { get; set; }

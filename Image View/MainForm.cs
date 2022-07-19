@@ -9,7 +9,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Image_Viewer_2 {
+namespace Image_View {
     public partial class MainForm : Form {
         public static readonly String NL = Environment.NewLine;
         public static readonly float MOUSE_WHEEL_ZOOM_FACTOR = 0.001F;
@@ -98,39 +98,39 @@ namespace Image_Viewer_2 {
             }
             DPI = new PointF(dpiX, dpiY);
             ToolsImageSize = new Size((int)(16 * dpiX / 96), (int)(16 * dpiY / 96));
-            // Handle the cistom icons for DPI
+            // Handle the custom icons for DPI
             // Make ToolsImageList
             ToolsImageList = new ImageList();
             ToolsImageList.ImageSize = ToolsImageSize;
             Assembly assembly = Assembly.GetExecutingAssembly();
             string[] resourceNames = GetType().Assembly.GetManifestResourceNames();
             Stream imageStream = assembly.GetManifestResourceStream(
-                "Image_Viewer_2.icons.fit-icon.png");
+                "Image_View.icons.fit-icon.png");
             if (imageStream != null) {
                 ToolsImageList.Images.Add("fit", Image.FromStream(imageStream));
             }
             imageStream = assembly.GetManifestResourceStream(
-                "Image_Viewer_2.icons.hand-cursor-icon.png");
+                "Image_View.icons.hand-cursor-icon.png");
             if (imageStream != null) {
                 ToolsImageList.Images.Add("hand", Image.FromStream(imageStream));
             }
             imageStream = assembly.GetManifestResourceStream(
-                "Image_Viewer_2.icons.landscape-icon.png");
+                "Image_View.icons.landscape-icon.png");
             if (imageStream != null) {
                 ToolsImageList.Images.Add("landscape", Image.FromStream(imageStream));
             }
             imageStream = assembly.GetManifestResourceStream(
-                "Image_Viewer_2.icons.portrait-icon.png");
+                "Image_View.icons.portrait-icon.png");
             if (imageStream != null) {
                 ToolsImageList.Images.Add("portrait", Image.FromStream(imageStream));
             }
             imageStream = assembly.GetManifestResourceStream(
-                "Image_Viewer_2.icons.refresh-icon.png");
+                "Image_View.icons.refresh-icon.png");
             if (imageStream != null) {
                 ToolsImageList.Images.Add("refresh", Image.FromStream(imageStream));
             }
             imageStream = assembly.GetManifestResourceStream(
-                "Image_Viewer_2.icons.zoom-icon.png");
+                "Image_View.icons.zoom-icon.png");
             if (imageStream != null) {
                 ToolsImageList.Images.Add("zoom", Image.FromStream(imageStream));
             }
@@ -360,7 +360,7 @@ namespace Image_Viewer_2 {
             //} catch (Exception ex) {
             //    Utils.excMsg("Failed to get AboutBox image", ex);
             //}
-            AboutBox dlg = new AboutBox("About Image Viewer 2", image, assembly);
+            AboutBox dlg = new AboutBox("About Image View", image, assembly);
             dlg.ShowDialog();
         }
     }
