@@ -105,6 +105,8 @@
     <Content Include="Help\Image View.256x256.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="icons\crop-icon.png" />
+    <EmbeddedResource Include="icons\fullscreen-icon.png" />
     <Content Include="Image View.ico" />
   </ItemGroup>
   <ItemGroup />

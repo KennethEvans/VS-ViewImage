@@ -5,6 +5,7 @@ using KEUtils.Utils;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -17,11 +18,24 @@ namespace Image_View {
         public static readonly float ZOOM_MIN = 0.1F;
 
         public Image Image { get; set; }
+        public Image ImageOrig { get; set; }
+        public Image ImageCrop { get; set; }
         public bool Panning { get; set; }
         public bool KeyPanning { get; set; }
         public Point PanStart { get; set; }
         float ZoomFactor { get; set; }
         public RectangleF ViewRectangle { get; set; }
+        public Rectangle CropRectangle { get; set; }
+
+        public bool Cropping { get; set; }
+        public int CropX { get; set; }
+        public int CropY { get; set; }
+        public int CropWidth { get; set; }
+        public int CropHeight { get; set; }
+        public Pen CropPen { get; set; }
+
+
+
         public float LeftMargin { get; set; } = 1f;
         public float RightMargin { get; set; } = 1f;
         public float TopMargin { get; set; } = 1f;
@@ -73,13 +87,31 @@ namespace Image_View {
         }
 
         private void resetImage() {
-            resetImage(null, false);
+            resetImage(null, false, null);
         }
 
         private void resetImage(string fileName, bool replace) {
+            resetImage(fileName, true, null);
+        }
+
+        /// <summary>
+        /// Main method to create or reset the image/
+        /// </summary>
+        /// <param name="fileName">If replace is true, gets the image from this filename.</param>
+        /// <param name="replace">Whether to replace the current image or not.</param>
+        /// <param name="newImage">If non-null, use this image.</param>
+        private void resetImage(string fileName, bool replace, Image newImage) {
             if (replace) {
-                if (Image != null) Image.Dispose();
-                Image = new Bitmap(fileName);
+                if (fileName != null) {
+                    if (Image != null) Image.Dispose();
+                    if (ImageOrig != null) Image.Dispose();
+                    Image = new Bitmap(fileName);
+                    ImageOrig = (Image)Image.Clone();
+                } else {
+                    if (newImage != null) {
+                        Image = newImage;
+                    }
+                }
             }
             ZoomFactor = 1.0F;
             Size clientSize = pictureBox.ClientSize;
@@ -87,6 +119,52 @@ namespace Image_View {
             //ViewImage = new Bitmap(clientSize.Width, clientSize.Height);
             //pictureBox.Image = ViewImage;
             pictureBox.Invalidate();
+        }
+
+        private void resetCropping() {
+            Cropping = false;
+            if (Panning) {
+                Cursor = Cursors.Hand;
+            } else {
+                Cursor = Cursors.Default;
+            }
+            if (CropPen != null) {
+                CropPen.Dispose();
+                CropPen = null;
+            }
+            if (ImageCrop != null) {
+                ImageCrop.Dispose();
+                ImageCrop = null;
+            }
+            pictureBox.Image = Image;
+            pictureBox.Invalidate();
+        }
+
+        private void Crop() {
+            resetCropping();
+            if (CropWidth < 1 || CropHeight < 1) {
+                return;
+            }
+            //First we define a rectangle with the help of already calculated points  
+            Bitmap newImage = new Bitmap(CropRectangle.Width, CropRectangle.Height);
+            // For croping image  
+            Graphics g = Graphics.FromImage(newImage);
+            // create graphics  
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            //set image attributes  
+            g.DrawImage(Image, 0, 0, CropRectangle, GraphicsUnit.Pixel);
+            pictureBox.Image = newImage;
+            pictureBox.Width = newImage.Width;
+            pictureBox.Height = newImage.Height;
+            resetImage(null, true, newImage);
+            resetViewToFit();
+        }
+
+        private int getDpiAdjustedCropLineWidth() {
+            int width = (int)Math.Round(DPI.X / 96 * 2);
+            return (int)Math.Round(DPI.X / 96 * 2);
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
@@ -105,9 +183,19 @@ namespace Image_View {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string[] resourceNames = GetType().Assembly.GetManifestResourceNames();
             Stream imageStream = assembly.GetManifestResourceStream(
-                "Image_View.icons.fit-icon.png");
+                "Image_View.icons.crop-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("crop", Image.FromStream(imageStream));
+            }
+            imageStream = assembly.GetManifestResourceStream(
+               "Image_View.icons.fit-icon.png");
             if (imageStream != null) {
                 ToolsImageList.Images.Add("fit", Image.FromStream(imageStream));
+            }
+            imageStream = assembly.GetManifestResourceStream(
+                "Image_View.icons.fullscreen-icon.png");
+            if (imageStream != null) {
+                ToolsImageList.Images.Add("fullscreen", Image.FromStream(imageStream));
             }
             imageStream = assembly.GetManifestResourceStream(
                 "Image_View.icons.hand-cursor-icon.png");
@@ -127,7 +215,7 @@ namespace Image_View {
             imageStream = assembly.GetManifestResourceStream(
                 "Image_View.icons.refresh-icon.png");
             if (imageStream != null) {
-                ToolsImageList.Images.Add("refresh", Image.FromStream(imageStream));
+                ToolsImageList.Images.Add("reset", Image.FromStream(imageStream));
             }
             imageStream = assembly.GetManifestResourceStream(
                 "Image_View.icons.zoom-icon.png");
@@ -135,11 +223,14 @@ namespace Image_View {
                 ToolsImageList.Images.Add("zoom", Image.FromStream(imageStream));
             }
             toolStrip1.ImageList = ToolsImageList;
+            cropToolStripButton.ImageKey = "crop";
             fitToolStripButton.ImageKey = "fit";
+            fullscreenToolStripButton.ImageKey = "fullscreen";
             handToolStripButton.ImageKey = "hand";
-            landscapeToolStripButton.ImageKey = "landscape";
+            landscapeToolStripButton.ImageKey =
+                "landscape";
             portraitToolStripButton.ImageKey = "portrait";
-            refreshToolStripButton.ImageKey = "refresh";
+            resetToolStripButton.ImageKey = "reset";
             zoomToolStripDropDownButton.ImageKey = "zoom";
         }
 
@@ -148,6 +239,7 @@ namespace Image_View {
             // Load initial image
             string fileName = @"C:\Users\evans\Documents\Map Lines\Proud Lake\Proud Lake Hiking-Biking-Bridle Trails Map.png";
             resetImage(fileName, true);
+            resetViewToFit();
 #endif
         }
 
@@ -209,6 +301,7 @@ namespace Image_View {
                 string fileName = openFileDialog.FileName;
                 try {
                     resetImage(fileName, true);
+                    resetViewToFit();
                 } catch (Exception ex) {
                     Utils.excMsg("Error opening file:" + NL + fileName, ex);
                     return;
@@ -225,7 +318,7 @@ namespace Image_View {
 
         private void OnSaveAsClick(object sender, EventArgs e) {
             string title = "OnSaveAsClick";
-        string message = "Save As: Not implemented yet";
+            string message = "Save As: Not implemented yet";
             MessageBox.Show(message, title);
         }
 
@@ -269,8 +362,39 @@ namespace Image_View {
             }
         }
 
+        private void OnCropClick(object sender, EventArgs e) {
+            Cropping = true;
+            Panning = false;
+            pictureBox.Cursor = Cursors.Cross;
+        }
+
+        private void OnCancelCropClick(object sender, EventArgs e) {
+            if (ImageCrop != null) {
+                resetCropping();
+            } else {
+                Utils.errMsg("Not cropping");
+            }
+        }
+
+        private void OnDoCropClick(object sender, EventArgs e) {
+            if (ImageCrop != null) {
+                Crop();
+            } else {
+                Utils.errMsg("Not cropping");
+            }
+        }
+
+        private void OnFullscreenClick(object sender, EventArgs e) {
+            resetImage(null, true, ImageOrig);
+        }
+
         private void OnResetClick(object sender, EventArgs e) {
-            resetImage();
+            if (ImageOrig != null) {
+                resetImage(null, true, ImageOrig);
+                resetViewToFit();
+            } else if (Image != null) {
+                resetImage();
+            }
         }
 
         private void OnFitClicked(object sender, EventArgs e) {
@@ -316,11 +440,31 @@ namespace Image_View {
 
         private void OnPictureBoxMouseDown(object sender, MouseEventArgs e) {
             if (Panning) PanStart = e.Location;
+            else if (Cropping) {
+                if (e.Button == System.Windows.Forms.MouseButtons.Left) {
+                    pictureBox.Refresh();
+                    if (ImageCrop != null) {
+                        ImageCrop.Dispose();
+                    }
+                    Bitmap bm = new Bitmap(Image.Width, Image.Height);
+                    //bm.MakeTransparent();
+                    ImageCrop = bm;
+                    CropX = e.X;
+                    CropY = e.Y;
+                    int newX = (int)Math.Round(CropX * ZoomFactor + ViewRectangle.X);
+                    int newY = (int)Math.Round(CropY * ZoomFactor + ViewRectangle.Y);
+                    CropRectangle = new Rectangle(newX, newY, 0, 0);
+                    CropPen = new Pen(Color.Black, 1);
+                    CropPen.DashStyle = DashStyle.Dash;
+                    CropPen.Width = getDpiAdjustedCropLineWidth();
+                    CropPen.Color = Color.Tomato;
+                }
+            }
         }
 
         private void OnPictureBoxMouseMove(object sender, MouseEventArgs e) {
-            if (Panning) {
-                if (e.Button == MouseButtons.Left) {
+            if (e.Button == MouseButtons.Left) {
+                if (Panning) {
                     float deltaX = PanStart.X - e.X;
                     float deltaY = PanStart.Y - e.Y;
                     // Reset PanStart
@@ -333,6 +477,21 @@ namespace Image_View {
                         + NL + " PanStart=(" + PanStart.X + "," + PanStart.Y + ")"
                         + NL + " delta=(" + deltaX + "," + deltaY + ")"
                         + NL + "    ViewRectangle=" + ViewRectangle);
+                    pictureBox.Invalidate();
+                } else if (Cropping) {
+                    Debug.WriteLine("OnPictureBoxMouseMove: Cropping=" + Cropping
+                        + $" CropX={CropX} CropY={CropY} CropPen={CropPen}");
+                    CropWidth = e.X - CropX;
+                    CropHeight = e.Y - CropY;
+                    using (Graphics g = Graphics.FromImage(ImageCrop)) {
+                        int newX = (int)Math.Round(CropX * ZoomFactor + ViewRectangle.X);
+                        int newY = (int)Math.Round(CropY * ZoomFactor + ViewRectangle.Y);
+                        int newWidth = (int)Math.Round(CropWidth * ZoomFactor);
+                        int newHeight = (int)Math.Round(CropHeight * ZoomFactor);
+                        CropRectangle = new Rectangle(newX, newY, newWidth, newHeight);
+                        g.Clear(Color.Transparent);
+                        g.DrawRectangle(CropPen, CropRectangle);
+                    }
                     pictureBox.Invalidate();
                 }
             }
@@ -350,6 +509,10 @@ namespace Image_View {
             g.Clear(pictureBox.BackColor);
             g.DrawImage(Image, pictureBox.ClientRectangle, ViewRectangle,
                 GraphicsUnit.Pixel);
+            if (ImageCrop != null) {
+                g.DrawImage(ImageCrop, pictureBox.ClientRectangle, ViewRectangle,
+                    GraphicsUnit.Pixel);
+            }
         }
 
         private void OnHelpAboutClick(object sender, EventArgs e) {

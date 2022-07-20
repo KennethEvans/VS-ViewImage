@@ -52,9 +52,11 @@
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.fitToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.refreshToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.fullscreenToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.resetToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.handToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.cropToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.zoomToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.zoom200ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoom100ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +76,8 @@
             this.toolStripMenuItem25 = new System.Windows.Forms.ToolStripMenuItem();
             this.panToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelCropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doCropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanelTop.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -133,64 +137,64 @@
             // openImageToolStripMenuItem
             // 
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(370, 54);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
             this.openImageToolStripMenuItem.Text = "Open Image...";
             this.openImageToolStripMenuItem.Click += new System.EventHandler(this.OnOpenImageClick);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(370, 54);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.OnSaveClick);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(370, 54);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.OnSaveAsClick);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(367, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(445, 6);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(370, 54);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
             this.printToolStripMenuItem.Text = "Print...";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.OnPrintClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(367, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(445, 6);
             // 
             // printPreviewToolStripMenuItem
             // 
             this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(370, 54);
+            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
             this.printPreviewToolStripMenuItem.Text = "PrintPreview...";
             this.printPreviewToolStripMenuItem.Click += new System.EventHandler(this.OnPrintPreviewClick);
             // 
             // pageSetupToolStripMenuItem
             // 
             this.pageSetupToolStripMenuItem.Name = "pageSetupToolStripMenuItem";
-            this.pageSetupToolStripMenuItem.Size = new System.Drawing.Size(370, 54);
+            this.pageSetupToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
             this.pageSetupToolStripMenuItem.Text = "Page Setup...";
             this.pageSetupToolStripMenuItem.Click += new System.EventHandler(this.OnPageSetupClick);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(367, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(445, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(370, 54);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitClick);
             // 
@@ -224,9 +228,11 @@
             this.helpToolStripButton,
             this.toolStripSeparator5,
             this.fitToolStripButton,
-            this.refreshToolStripButton,
+            this.fullscreenToolStripButton,
+            this.resetToolStripButton,
             this.toolStripSeparator6,
             this.handToolStripButton,
+            this.cropToolStripButton,
             this.zoomToolStripDropDownButton,
             this.toolStripSeparator8,
             this.landscapeToolStripButton,
@@ -333,16 +339,26 @@
             this.fitToolStripButton.ToolTipText = "Fit image to the visible area";
             this.fitToolStripButton.Click += new System.EventHandler(this.OnFitClicked);
             // 
-            // refreshToolStripButton
+            // fullscreenToolStripButton
             // 
-            this.refreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.refreshToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshToolStripButton.Image")));
-            this.refreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refreshToolStripButton.Name = "refreshToolStripButton";
-            this.refreshToolStripButton.Size = new System.Drawing.Size(58, 44);
-            this.refreshToolStripButton.Text = "Reset";
-            this.refreshToolStripButton.ToolTipText = "Reset the image to as opened";
-            this.refreshToolStripButton.Click += new System.EventHandler(this.OnResetClick);
+            this.fullscreenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.fullscreenToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("fullscreenToolStripButton.Image")));
+            this.fullscreenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fullscreenToolStripButton.Name = "fullscreenToolStripButton";
+            this.fullscreenToolStripButton.Size = new System.Drawing.Size(58, 44);
+            this.fullscreenToolStripButton.Text = "Fullscreen";
+            this.fullscreenToolStripButton.ToolTipText = "Show image with actual pixels";
+            this.fullscreenToolStripButton.Click += new System.EventHandler(this.OnFullscreenClick);
+            // 
+            // resetToolStripButton
+            // 
+            this.resetToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.resetToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.resetToolStripButton.Name = "resetToolStripButton";
+            this.resetToolStripButton.Size = new System.Drawing.Size(58, 44);
+            this.resetToolStripButton.Text = "Reset";
+            this.resetToolStripButton.ToolTipText = "Reset the image to as opened";
+            this.resetToolStripButton.Click += new System.EventHandler(this.OnResetClick);
             // 
             // toolStripSeparator6
             // 
@@ -359,6 +375,17 @@
             this.handToolStripButton.Text = "Pan";
             this.handToolStripButton.ToolTipText = "Toggle panning";
             this.handToolStripButton.Click += new System.EventHandler(this.OnPanClick);
+            // 
+            // cropToolStripButton
+            // 
+            this.cropToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cropToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cropToolStripButton.Image")));
+            this.cropToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cropToolStripButton.Name = "cropToolStripButton";
+            this.cropToolStripButton.Size = new System.Drawing.Size(58, 44);
+            this.cropToolStripButton.Text = "Crop";
+            this.cropToolStripButton.ToolTipText = "Crop";
+            this.cropToolStripButton.Click += new System.EventHandler(this.OnCropClick);
             // 
             // zoomToolStripDropDownButton
             // 
@@ -459,14 +486,16 @@
             this.fitToolStripMenuItem,
             this.zoomToolStripMenuItem,
             this.panToolStripMenuItem,
-            this.resetToolStripMenuItem});
+            this.resetToolStripMenuItem,
+            this.cancelCropToolStripMenuItem,
+            this.doCropToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(176, 196);
+            this.contextMenuStrip.Size = new System.Drawing.Size(258, 292);
             // 
             // fitToolStripMenuItem
             // 
             this.fitToolStripMenuItem.Name = "fitToolStripMenuItem";
-            this.fitToolStripMenuItem.Size = new System.Drawing.Size(175, 48);
+            this.fitToolStripMenuItem.Size = new System.Drawing.Size(257, 48);
             this.fitToolStripMenuItem.Text = "Fit";
             this.fitToolStripMenuItem.Click += new System.EventHandler(this.OnFitClicked);
             // 
@@ -478,7 +507,7 @@
             this.toolStripMenuItem50,
             this.toolStripMenuItem25});
             this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
-            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(175, 48);
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(257, 48);
             this.zoomToolStripMenuItem.Text = "Zoom";
             // 
             // toolStripMenuItem200
@@ -512,16 +541,30 @@
             // panToolStripMenuItem
             // 
             this.panToolStripMenuItem.Name = "panToolStripMenuItem";
-            this.panToolStripMenuItem.Size = new System.Drawing.Size(175, 48);
+            this.panToolStripMenuItem.Size = new System.Drawing.Size(257, 48);
             this.panToolStripMenuItem.Text = "Pan";
             this.panToolStripMenuItem.Click += new System.EventHandler(this.OnPanClick);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(175, 48);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(257, 48);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.OnResetClick);
+            // 
+            // cancelCropToolStripMenuItem
+            // 
+            this.cancelCropToolStripMenuItem.Name = "cancelCropToolStripMenuItem";
+            this.cancelCropToolStripMenuItem.Size = new System.Drawing.Size(257, 48);
+            this.cancelCropToolStripMenuItem.Text = "Cancel Crop";
+            this.cancelCropToolStripMenuItem.Click += new System.EventHandler(this.OnCancelCropClick);
+            // 
+            // doCropToolStripMenuItem
+            // 
+            this.doCropToolStripMenuItem.Name = "doCropToolStripMenuItem";
+            this.doCropToolStripMenuItem.Size = new System.Drawing.Size(257, 48);
+            this.doCropToolStripMenuItem.Text = "Do Crop";
+            this.doCropToolStripMenuItem.Click += new System.EventHandler(this.OnDoCropClick);
             // 
             // MainForm
             // 
@@ -592,7 +635,7 @@
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton fitToolStripButton;
-        private System.Windows.Forms.ToolStripButton refreshToolStripButton;
+        private System.Windows.Forms.ToolStripButton resetToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton handToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
@@ -603,6 +646,10 @@
         private System.Windows.Forms.ToolStripMenuItem zoom100ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zoom50ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zoom25ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton fullscreenToolStripButton;
+        private System.Windows.Forms.ToolStripButton cropToolStripButton;
+        private System.Windows.Forms.ToolStripMenuItem cancelCropToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem doCropToolStripMenuItem;
     }
 }
 
