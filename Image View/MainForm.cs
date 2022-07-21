@@ -16,6 +16,14 @@ namespace Image_View {
         public static readonly float MOUSE_WHEEL_ZOOM_FACTOR = 0.001F;
         public static readonly float KEY_ZOOM_FACTOR = 1.1F;
         public static readonly float ZOOM_MIN = 0.1F;
+        public static readonly int MOVE_UP = 1;
+        public static readonly int MOVE_DOWN = 2;
+        public static readonly int MOVE_LEFT = 4;
+        public static readonly int MOVE_RIGHT = 8;
+        public static readonly int SHRINK_HEIGHT = 16;
+        public static readonly int EXPAND_HEIGHT = 32;
+        public static readonly int SHRINK_WIDTH = 64;
+        public static readonly int EXPAND_RIGHT = 128;
 
         public Image Image { get; set; }
         public Image ImageOrig { get; set; }
@@ -162,9 +170,40 @@ namespace Image_View {
             resetViewToFit();
         }
 
-        private int getDpiAdjustedCropLineWidth() {
-            int width = (int)Math.Round(DPI.X / 96 * 2);
-            return (int)Math.Round(DPI.X / 96 * 2);
+        private void resetCropRectangle(int flags, int value) {
+            if (CropRectangle == null) return;
+            int x = CropRectangle.X;
+            int y = CropRectangle.Y;
+            int width = CropRectangle.Width;
+            int height = CropRectangle.Height;
+            if ((flags & MOVE_UP) != 0) {
+                y -= value;
+            } else if ((flags & MOVE_DOWN) != 0) {
+                y += value;
+            } else if ((flags & MOVE_LEFT) != 0) {
+                x -= value;
+            } else if ((flags & MOVE_RIGHT) != 0) {
+                x += value;
+            } else if ((flags & SHRINK_HEIGHT) != 0) {
+                height -= value;
+            } else if ((flags & EXPAND_HEIGHT) != 0) {
+                height += value;
+            } else if ((flags & SHRINK_WIDTH) != 0) {
+                width -= value;
+            } else if ((flags & EXPAND_RIGHT) != 0) {
+                width += value;
+            }
+
+                CropRectangle = new Rectangle(x, y, width, height);
+            using (Graphics g = Graphics.FromImage(ImageCrop)) {
+                g.Clear(Color.Transparent);
+                g.DrawRectangle(CropPen, CropRectangle);
+            }
+            pictureBox.Invalidate();
+        }
+
+        private float getDpiAdjustedCropLineWidth() {
+            return (float)Math.Round(DPI.X / 96 * 1.5);
         }
 
         private void OnFormLoad(object sender, EventArgs e) {
@@ -272,6 +311,30 @@ namespace Image_View {
             } else if (e.KeyCode == Keys.D1) {
                 if ((Control.ModifierKeys & Keys.Control) == Keys.Control) {
                     resetImage();
+                }
+            } else if (e.KeyCode == Keys.Up) {
+                if ((Control.ModifierKeys & Keys.Control) == Keys.Control) {
+                    resetCropRectangle(MOVE_UP, 1);
+                } else {
+                    resetCropRectangle(SHRINK_HEIGHT, 1);
+                }
+            } else if (e.KeyCode == Keys.Down) {
+                if ((Control.ModifierKeys & Keys.Control) == Keys.Control) {
+                    resetCropRectangle(MOVE_DOWN, 1);
+                } else {
+                    resetCropRectangle(EXPAND_HEIGHT, 1);
+                }
+            } else if (e.KeyCode == Keys.Left) {
+                if ((Control.ModifierKeys & Keys.Control) == Keys.Control) {
+                    resetCropRectangle(MOVE_LEFT, 1);
+                } else {
+                    resetCropRectangle(SHRINK_WIDTH, 1);
+                }
+            } else if (e.KeyCode == Keys.Right) {
+                if ((Control.ModifierKeys & Keys.Control) == Keys.Control) {
+                    resetCropRectangle(MOVE_RIGHT, 1);
+                } else {
+                    resetCropRectangle(EXPAND_RIGHT, 1);
                 }
             }
         }
